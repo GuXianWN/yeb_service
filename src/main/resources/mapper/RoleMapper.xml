@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guxian.mapper.RoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.guxian.entity.Role">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="nameZh" property="namezh"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, nameZh
+    </sql>
+    <select id="getRoles" resultType="com.guxian.entity.Role">
+        select r.id, name, nameZh
+        from yeb.t_role r
+                 left join yeb.t_admin_role tar on r.id = tar.rid
+        where tar.adminId = #{adminId}
+    </select>
+
+</mapper>
